@@ -3,8 +3,6 @@ import org.apache.flume.channel.ChannelProcessor;
 import org.apache.flume.channel.PseudoTxnMemoryChannel;
 import org.apache.flume.channel.ReplicatingChannelSelector;
 import org.apache.flume.conf.Configurables;
-import org.apache.flume.source.AbstractSource;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class TweetSourceTest {
 
     @Test
     public void tweet() throws EventDeliveryException, InterruptedException {
-        source = new TweetSource2();
+        source = new TweetSource();
 
           Channel channel = new PseudoTxnMemoryChannel();
           Context context = new Context();
