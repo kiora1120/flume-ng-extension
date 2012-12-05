@@ -15,11 +15,6 @@ import java.util.*;
 
 import static org.testng.Assert.*;
 
-/**
- * User: guoqiang.li
- * Date: 12-9-12
- * Time: 下午3:31
- */
 @Test(singleThreaded = true, threadPoolSize = 1)
 public class MongoSinkTest {
 	private static Mongo mongo;
