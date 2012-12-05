@@ -6,6 +6,7 @@ import org.apache.flume.source.AbstractSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.*;
+import twitter4j.auth.AccessToken;
 
 /**
  * A class representing a window on the screen.
@@ -20,20 +21,40 @@ import twitter4j.*;
  */
 public class TweetSource extends AbstractSource implements Configurable, EventDrivenSource {
     private static final Logger logger = LoggerFactory.getLogger(TweetSource.class);
-    private String[] track;
-    private static String msg = "";
     private TwitterAdapter adapter;
 
+    private String[] track;
+    private double[][] locations;
+    private long count;
+    private String consumerKey;
+    private String consumerSecret;
+    private String accessToken;
+    private String accessTokenSecret;
 
     @Override
     public void configure(Context context) {
-        logger.info("Configure {}...", context.getString("track",""));
+        /*
+        agent1.sources.source1.type = TweetSource
+        agent1.sources.source1.track = 강예빈,아이유,북한,미사일,로켓,문재인,박근혜
+        #agent1.sources.source1.locations = 11,11|22,22
+        #agent1.sources.source1.count = 1000
+        agent1.sources.source1.consumerKey=
+        agent1.sources.source1.consumerSecret=
+        agent1.sources.source1.accessToken=
+        agent1.sources.source1.accessTokenSecret=
+
+         */
+        logger.info("Configure {}...", context.getString("track", ""));
+
         //todo 인증 키 받는 부분 넣어야 함.
 
-        track = context.getString("track").split(",");
-//    some_Param = context.get("some_param", String.class);
-        // process some_param …
-
+        track = context.getString("track","").split(",");
+//        locations =  context("locations","").split("|");
+        count = context.getInteger("count", -1);
+        consumerKey = context.getString("consumerKey","");
+        consumerSecret = context.getString("consumerSecret","");
+        accessToken = context.getString("accessToken","");
+        accessTokenSecret = context.getString("accessTokenSecret","");
 
     }
 
@@ -42,7 +63,10 @@ public class TweetSource extends AbstractSource implements Configurable, EventDr
         logger.info("Starting {}...", this);
 
         try {
-            if (adapter == null) adapter = new TwitterAdapter(getChannelProcessor(),track);
+            if (adapter == null){
+                adapter = new TwitterAdapter(getChannelProcessor(), track);
+                adapter.setOAuth(consumerKey, consumerSecret, accessToken, accessTokenSecret);
+            }
             adapter.run();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -55,7 +79,7 @@ public class TweetSource extends AbstractSource implements Configurable, EventDr
     @Override
     public void stop() {
         logger.info("Avro source {} stopping: {}", getName(), this);
-        if (adapter != null){
+        if (adapter != null) {
             adapter.shutdown();
             adapter = null;
         }
@@ -71,19 +95,21 @@ public class TweetSource extends AbstractSource implements Configurable, EventDr
         public TwitterAdapter(ChannelProcessor channelProcessor, String[] track) {
             this.channelProcessor = channelProcessor;
             this.track = track;
+            twitterStream = new TwitterStreamFactory().getInstance();
         }
 
         public void run() throws InterruptedException {
-            twitterStream = new TwitterStreamFactory().getInstance();
+
 
             StatusListener listener = new StatusListener() {
                 @Override
                 public void onStatus(twitter4j.Status status) {
 
-                    msg = "@" + status.getUser().getScreenName() + " - " + status.getText();
+                    String msg = "@" + status.getUser().getScreenName() + " - " + status.getText();
 
                     if (msg != null || !msg.equals("")) {
                         Event e = EventBuilder.withBody(msg.getBytes());
+                        e.getHeaders();
                         channelProcessor.processEvent(e);
                     }
 //
@@ -114,14 +140,20 @@ public class TweetSource extends AbstractSource implements Configurable, EventDr
                     ex.printStackTrace();
                 }
             };
+
             twitterStream.addListener(listener);
             FilterQuery query = new FilterQuery();
             query.track(track);
             twitterStream.filter(query);
         }
 
-        public void shutdown(){
-            if(twitterStream!=null) twitterStream.shutdown();
+        public void shutdown() {
+            if (twitterStream != null) twitterStream.shutdown();
+        }
+
+        public void setOAuth(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
+            twitterStream.setOAuthConsumer(consumerKey,consumerSecret);
+            twitterStream.setOAuthAccessToken(new AccessToken(accessToken,accessTokenSecret));
         }
     }
 }
