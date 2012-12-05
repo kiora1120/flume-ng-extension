@@ -14,11 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * User: guoqiang.li
- * Date: 12-9-12
- * Time: 下午3:31
- */
 public class MongoSink extends AbstractSink implements Configurable {
 	private static Logger logger = LoggerFactory.getLogger(MongoSink.class);
 
