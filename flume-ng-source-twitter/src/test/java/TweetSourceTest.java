@@ -51,7 +51,6 @@ public class TweetSourceTest {
             Event event = channel.take();
             if (event != null) {
                 System.out.println(new String(event.getBody()));
-                System.out.println(event.getHeaders());
             }
 
 //            Assert.assertArrayEquals(String.valueOf(i).getBytes(),
