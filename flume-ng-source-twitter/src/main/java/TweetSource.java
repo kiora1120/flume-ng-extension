@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A class representing a window on the screen.
  * For example:
@@ -109,6 +112,9 @@ public class TweetSource extends AbstractSource implements Configurable, EventDr
 
                     if (msg != null || !msg.equals("")) {
                         Event e = EventBuilder.withBody(msg.getBytes());
+	                    Map<String,String> headerMap = new HashMap<String, String>();
+	                    headerMap.put("status","twitter");
+	                    e.setHeaders(headerMap);
                         e.getHeaders();
                         channelProcessor.processEvent(e);
                     }
