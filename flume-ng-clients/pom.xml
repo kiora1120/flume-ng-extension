@@ -43,6 +43,8 @@ limitations under the License.
 
 	<modules>
 		<module>flume-ng-http-client</module>
+		<module>flume-ng-udp-client</module>
+		<module>flume-ng-thrift-client</module>
 	</modules>
 
 </project>
