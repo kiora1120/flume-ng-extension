@@ -33,6 +33,7 @@
 	<modules>
 		<module>flume-ng-source-twitter</module>
 		<module>flume-ng-mongodb-sink</module>
+		<module>flume-ng-infinispan-source</module>
 	</modules>
 
 	<profiles>
