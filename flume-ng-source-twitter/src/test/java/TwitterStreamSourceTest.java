@@ -1,5 +1,6 @@
 import org.apache.flume.*;
 import org.apache.flume.channel.ChannelProcessor;
+import org.apache.flume.channel.ChannelSelectorFactory;
 import org.apache.flume.channel.PseudoTxnMemoryChannel;
 import org.apache.flume.channel.ReplicatingChannelSelector;
 import org.apache.flume.conf.Configurables;
@@ -19,21 +20,26 @@ import java.util.List;
  * @author <A HREF="mailto:[kiora1120@gmail.com]">TJune Kim</A>
  * @version 1.0
  */
-public class TweetSourceTest {
+public class TwitterStreamSourceTest {
     private Source source;
 
+    private ChannelSelector selector;
+
+
     @Test
-    public void tweet() throws EventDeliveryException, InterruptedException {
-        source = new TweetSource();
+    public void streamTwitter() throws EventDeliveryException, InterruptedException {
+        source = new TwitterStreamSource();
 
         Channel channel = new PseudoTxnMemoryChannel();
         Context context = new Context();
+//        selector = ChannelSelectorFactory.create(channel, context);
 
         context.put("track", "문재인,안철수");
-        context.put("consumerKey","");
-        context.put("consumerSecret","");
-        context.put("accessToken","");
-        context.put("accessTokenSecret","");
+//        context.put("count", "5");
+        context.put("consumerKey","8GQWCNJtBgyvYdwpoUTgA");
+        context.put("consumerSecret","K2eYATNj440tT9s7Lt6TwJnluyqDhXPdu6ZYRdwxRsE");
+        context.put("accessToken","164970128-W1AhGjeQvSM7poPW351S518ImQW44pBsIwymo8Ns");
+        context.put("accessTokenSecret","HV7Y5f5wdfFzePSQWVVcuMc3mylqq3U7cD9hjxrn4");
 
         Configurables.configure(source, context);
         Configurables.configure(channel, context);
@@ -51,12 +57,22 @@ public class TweetSourceTest {
             Event event = channel.take();
             if (event != null) {
                 System.out.println(new String(event.getBody()));
+                System.out.println(event.getHeaders());
             }
 
 //            Assert.assertArrayEquals(String.valueOf(i).getBytes(),
 //                    new String(event.getBody()).getBytes());
             Thread.sleep(1000);
         }
+
+    }
+
+    @Test
+    public void makeLocationsDoubleArrayTest(){
+        String locations = "11.22,123.44|22.33,2314.11";
+
+        System.out.println(TwitterStreamSource.makeLocationsDoubleArray(locations, "\\|"));
+
 
     }
 }

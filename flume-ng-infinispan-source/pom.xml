@@ -16,7 +16,6 @@
 
 	<properties>
 		<infinispan.version>5.1.7.Final</infinispan.version>
-		<flume.version>1.3.0</flume.version>
 	</properties>
 
 	<profiles>
@@ -131,13 +130,11 @@
 		<dependency>
 			<groupId>org.apache.flume</groupId>
 			<artifactId>flume-ng-core</artifactId>
-			<version>${flume.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.flume</groupId>
 			<artifactId>flume-ng-sdk</artifactId>
-			<version>${flume.version}</version>
 		</dependency>
 
 		<!-- Junit -->

@@ -15,7 +15,7 @@
 	<version>1.0.SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Apache Flume</name>
+	<name>Apache Flume Extention</name>
 
 	<properties>
 		<!-- Set default encoding to UTF-8 to remove maven complaints -->
@@ -27,6 +27,7 @@
 		<test.include.pattern>**/Test*.java</test.include.pattern>
 		<siteUrlDeployment>file://people.apache.org/www/incubator.apache.org/flume</siteUrlDeployment>
 		<stagingDirectory>${project.basedir}/target/docs</stagingDirectory>
+        <flume.version>1.3.0</flume.version>
 
 	</properties>
 
@@ -433,78 +434,78 @@
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-configuration</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-core</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-node</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-file-channel</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-jdbc-channel</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-recoverable-memory-channel</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-hdfs-sink</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-irc-sink</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-ng-hbase-sink</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-legacy-sources</groupId>
 				<artifactId>flume-thrift-source</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-legacy-sources</groupId>
 				<artifactId>flume-avro-source</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-sdk</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-clients</groupId>
 				<artifactId>flume-ng-log4jappender</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 			</dependency>
 
 			<dependency>
@@ -522,7 +523,7 @@
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-core</artifactId>
-				<version>1.2.0</version>
+				<version>${flume.version}</version>
 				<scope>compile</scope>
 			</dependency>
 
