@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<plugin name="FlumeJmx2"
+        displayName="Flume NG RHQ Plugin"
+        version="1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="urn:xmlns:rhq-plugin"
+        xmlns:c="urn:xmlns:rhq-configuration">
+
+    <depends plugin="JMX" useClasses="true"/>
+    <!--<depends plugin="JBossAS"/>-->
+
+    <service name="Flume Channel Monitoring Service"
+             description="Provided Source, Sink Statistics"
+             discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+             class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+        <runs-inside>
+            <parent-resource-type name="JMX Server" plugin="JMX"/>
+            <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+        </runs-inside>
+
+        <plugin-configuration>
+            <c:simple-property name="objectName" readOnly="true"
+                               default="org.apache.flume.channel:type=channel1"/>
+        </plugin-configuration>
+
+        <metric property="EventPutAttemptCount"
+                displayName="Event Put Attempt Count"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="EventTakeAttemptCount"
+                displayName="EventTakeAttemptCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="EventPutSuccessCount"
+                displayName="EventPutSuccessCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="EventTakeSuccessCount"
+                displayName="EventTakeSuccessCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+    </service>
+
+    <service name="Flume Sink Monitoring Service"
+             description="Provided Source, Sink Statistics"
+             discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+             class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+        <runs-inside>
+            <parent-resource-type name="JMX Server" plugin="JMX"/>
+            <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+        </runs-inside>
+
+        <plugin-configuration>
+            <c:simple-property name="objectName" readOnly="true"
+                               default="org.apache.flume.sink:type=sink1"/>
+        </plugin-configuration>
+
+        <metric property="BatchCompleteCount"
+                displayName="BatchCompleteCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="BatchEmptyCount"
+                displayName="BatchEmptyCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="BatchUnderflowCount"
+                displayName="BatchUnderflowCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="ConnectionClosedCount"
+                displayName="ConnectionClosedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="ConnectionCreatedCount"
+                displayName="ConnectionCreatedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="ConnectionFailedCount"
+                displayName="ConnectionFailedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="EventDrainAttemptCount"
+                displayName="EventDrainAttemptCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="EventDrainSuccessCount"
+                displayName="EventDrainSuccessCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+    </service>
+
+
+</plugin>
