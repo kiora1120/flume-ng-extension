@@ -1,0 +1,1 @@
+bin/flume-ng agent -n a1 -c conf -f conf/example.properties -Dflume.root.logger=DEBUG,console
