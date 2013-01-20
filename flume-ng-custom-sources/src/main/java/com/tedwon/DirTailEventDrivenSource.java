@@ -86,11 +86,6 @@ public class DirTailEventDrivenSource extends AbstractSource implements Configur
                 // check for new file
                 if (lastModifiedFile == null || !newLastModifiedFile.getPath().equals(lastModifiedFile.getPath())) {
 
-                    // stop first
-                    if (tailThread != null) {
-                        tailThread.stop();
-                    }
-
                     // change
                     lastModifiedFile = newLastModifiedFile;
 
