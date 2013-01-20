@@ -27,14 +27,14 @@
 		<test.include.pattern>**/Test*.java</test.include.pattern>
 		<siteUrlDeployment>file://people.apache.org/www/incubator.apache.org/flume</siteUrlDeployment>
 		<stagingDirectory>${project.basedir}/target/docs</stagingDirectory>
-        <flume.version>1.3.0</flume.version>
+        <flume.version>1.3.1</flume.version>
 
 	</properties>
 
 	<modules>
 		<module>flume-ng-source-twitter</module>
 		<module>flume-ng-mongodb-sink</module>
-		<module>flume-ng-infinispan-source</module>
+		<module>flume-ng-custom-sources</module>
 	</modules>
 
 	<profiles>
