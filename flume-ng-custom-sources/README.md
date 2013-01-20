@@ -8,6 +8,7 @@ Custom Sources
 ### Directory Tailing Flume Source
 
 DirTailPollableSource
+
 DirTailEventDrivenSource
 
 
@@ -23,6 +24,6 @@ Performance Results
 
 avg 250k/s CPU: avg 28% Mem: 70MB
 
-### DirTailPollableSource:
+### DirTailEventDrivenSource:
 
 avg 150k/s CPU: avg 18% Mem: 10MB
