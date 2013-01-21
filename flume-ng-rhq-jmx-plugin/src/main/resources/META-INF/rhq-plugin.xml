@@ -22,7 +22,7 @@
 
         <plugin-configuration>
             <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.flume.source:type=source1"/>
+                               default="org.apache.flume.source:type=*"/>
         </plugin-configuration>
 
         <metric property="EventReceivedCount"
@@ -81,7 +81,7 @@
 
         <plugin-configuration>
             <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.flume.channel:type=channel1"/>
+                               default="org.apache.flume.channel:type=*"/>
         </plugin-configuration>
 
         <metric property="EventPutAttemptCount"
@@ -120,7 +120,7 @@
 
         <plugin-configuration>
             <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.flume.sink:type=sink1"/>
+                               default="org.apache.flume.sink:type=*"/>
         </plugin-configuration>
 
         <metric property="BatchCompleteCount"
