@@ -1,4 +1,4 @@
-package com.tedwon;
+package com.tedwon.flume.sink;
 
 import org.apache.flume.Channel;
 import org.apache.flume.Context;
