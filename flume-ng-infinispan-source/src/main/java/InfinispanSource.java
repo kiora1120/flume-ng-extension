@@ -15,6 +15,6 @@ public class InfinispanSource extends AbstractSource implements Configurable, Ev
 
 	@Override
 	public void configure(Context context) {
-		//To change body of implemented methods use File | Settings | File Templates.
+
 	}
 }
