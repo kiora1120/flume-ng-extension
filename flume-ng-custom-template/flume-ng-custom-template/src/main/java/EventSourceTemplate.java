@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TwitterStreamSource
+ * EventSourceTemplate
  *
  * @author <A HREF="mailto:[kiora1120@gmail.com]">TJune Kim</A>
  * @version 1.0

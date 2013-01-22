@@ -1,4 +1,4 @@
-package com.tedwon;
+package com.tedwon.flume.source;
 
 import org.apache.flume.Context;
 import org.apache.flume.Event;

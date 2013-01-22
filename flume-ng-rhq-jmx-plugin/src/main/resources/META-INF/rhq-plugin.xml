@@ -10,6 +10,65 @@
     <depends plugin="JMX" useClasses="true"/>
     <!--<depends plugin="JBossAS"/>-->
 
+    <service name="Flume Source Monitoring Service"
+             description="Provided Source, Channel, Sink Statistics"
+             discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
+             class="org.rhq.plugins.jmx.MBeanResourceComponent">
+
+        <runs-inside>
+            <parent-resource-type name="JMX Server" plugin="JMX"/>
+            <parent-resource-type name="JBossAS Server" plugin="JBossAS"/>
+        </runs-inside>
+
+        <plugin-configuration>
+            <c:simple-property name="objectName" readOnly="true"
+                               default="org.apache.flume.source:type=*"/>
+        </plugin-configuration>
+
+        <metric property="EventReceivedCount"
+                displayName="EventReceivedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="EventAcceptedCount"
+                displayName="EventAcceptedCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="AppendReceivedCount"
+                displayName="AppendReceivedCount"
+                displayType="summary"
+                defaultOn="true"
+                />
+
+        <metric property="AppendAcceptedCount"
+                displayName="AppendAcceptedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="AppendBatchReceivedCount"
+                displayName="AppendBatchReceivedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="AppendBatchAcceptedCount"
+                displayName="AppendBatchAcceptedCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="OpenConnectionCount"
+                displayName="OpenConnectionCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+        <metric property="EventDrainSuccessCount"
+                displayName="EventDrainSuccessCount"
+                defaultOn="true"
+                displayType="summary"/>
+
+    </service>
+
     <service name="Flume Channel Monitoring Service"
              description="Provided Source, Sink Statistics"
              discovery="org.rhq.plugins.jmx.MBeanResourceDiscoveryComponent"
@@ -22,7 +81,7 @@
 
         <plugin-configuration>
             <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.flume.channel:type=channel1"/>
+                               default="org.apache.flume.channel:type=*"/>
         </plugin-configuration>
 
         <metric property="EventPutAttemptCount"
@@ -61,7 +120,7 @@
 
         <plugin-configuration>
             <c:simple-property name="objectName" readOnly="true"
-                               default="org.apache.flume.sink:type=sink1"/>
+                               default="org.apache.flume.sink:type=*"/>
         </plugin-configuration>
 
         <metric property="BatchCompleteCount"
