@@ -1,150 +1,114 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<modelVersion>4.0.0</modelVersion>
+    <!-- Parent Module -->
+    <parent>
+        <artifactId>flume-extention</artifactId>
+        <groupId>org.apache.flume</groupId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
 
-	<parent>
-		<groupId>org.apache.flume</groupId>
-		<artifactId>flume-extention</artifactId>
-		<version>1.0.SNAPSHOT</version>
-	</parent>
+    <!-- Infinispan Sink -->
+    <groupId>org.apache.flume</groupId>
+    <artifactId>flume-ng-infinispan-source</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <name>Flume NG Jboss Infinispan Sink</name>
 
-	<groupId>org.apache.flume</groupId>
-	<artifactId>flume-ng-infinispan-source</artifactId>
-	<version>1.0.SNAPSHOT</version>
-	<name>Flume NG Infinispan Source</name>
+    <properties>
+        <infinispan.version>5.1.6.FINAL</infinispan.version>
+    </properties>
 
-	<properties>
-		<infinispan.version>5.1.7.Final</infinispan.version>
-	</properties>
+    <build>
 
-	<profiles>
-		<profile>
-			<id>not-windows</id>
-			<activation>
-				<os>
-					<family>!Windows</family>
-				</os>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
-						<executions>
-							<execution>
-								<id>generate-version</id>
-								<phase>generate-sources</phase>
-								<configuration>
-									<executable>scripts/saveVersion.sh</executable>
-									<arguments>
-										<argument>${project.version}</argument>
-										<argument>${project.build.directory}</argument>
-									</arguments>
-								</configuration>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
+        <plugins>
 
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>build-helper-maven-plugin</artifactId>
-						<version>1.7</version>
-						<executions>
-							<execution>
-								<id>add-source</id>
-								<phase>generate-sources</phase>
-								<goals>
-									<goal>add-source</goal>
-								</goals>
-								<configuration>
-									<sources>
-										<source>target/generated-sources/java</source>
-									</sources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+            <!-- Package with Dependencies -->
+            <plugin>
+                <!-- NOTE: We don't need a groupId specification because the group is
+                  org.apache.maven.plugins ...which is assumed by default.
+                -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- this is used for inheritance merges -->
+                        <phase>package</phase>
+                        <!-- append to the packaging phase. -->
+                        <goals>
+                            <goal>attached</goal>
+                            <!-- goals == mojos -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+    <dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<!-- NOTE: We don't need a groupId specification because the group is
-				  org.apache.maven.plugins ...which is assumed by default.
-				-->
-				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<!-- this is used for inheritance merges -->
-						<phase>package</phase>
-						<!-- append to the packaging phase. -->
-						<goals>
-							<goal>attached</goal>
-							<!-- goals == mojos -->
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+        <!-- ================== -->
+        <!--  Apache Flume NG   -->
+        <!-- ================== -->
 
+        <!-- Flume Core -->
+        <dependency>
+            <groupId>org.apache.flume</groupId>
+            <artifactId>flume-ng-core</artifactId>
+        </dependency>
 
-	<dependencies>
+        <!-- Flume SDK -->
+        <dependency>
+            <groupId>org.apache.flume</groupId>
+            <artifactId>flume-ng-sdk</artifactId>
+        </dependency>
 
-		<!-- Jboss Infinispan -->
+        <!-- ================== -->
+        <!--  Jboss Infinispan  -->
+        <!-- ================== -->
 
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-core</artifactId>
-			<version>5.1.7.Final</version>
-		</dependency>
+        <!-- Infinispan Core -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
+            <version>${infinispan.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-client-hotrod</artifactId>
-			<version>5.1.7.Final</version>
-		</dependency>
+        <!-- Client Hotrod -->
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-client-hotrod</artifactId>
+            <version>${infinispan.version}</version>
+        </dependency>
 
-		<!-- Apache Flume -->
+        <!-- Junit for Unit Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.flume</groupId>
-			<artifactId>flume-ng-core</artifactId>
-		</dependency>
+    </dependencies>
 
-		<dependency>
-			<groupId>org.apache.flume</groupId>
-			<artifactId>flume-ng-sdk</artifactId>
-		</dependency>
-
-		<!-- Junit -->
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-
-	</dependencies>
-
+    <developers>
+        <developer>
+            <name>Alvin Shin</name>
+            <id>alvin</id>
+            <email>jhshin9@gmail.com</email>
+            <organization>cloufra</organization>
+        </developer>
+    </developers>
 
 </project>

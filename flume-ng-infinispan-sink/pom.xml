@@ -8,13 +8,13 @@
     <parent>
         <artifactId>flume-extention</artifactId>
         <groupId>org.apache.flume</groupId>
-        <version>1.0.SNAPSHOT</version>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
     <!-- Infinispan Sink -->
     <groupId>org.apache.flume</groupId>
     <artifactId>flume-ng-infinispan-sink</artifactId>
-    <version>1.0.SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <name>Flume NG Jboss Infinispan Sink</name>
 
     <properties>
