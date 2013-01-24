@@ -15,7 +15,7 @@
     <groupId>org.apache.flume</groupId>
     <artifactId>flume-ng-infinispan-source</artifactId>
     <version>0.1-SNAPSHOT</version>
-    <name>Flume NG Jboss Infinispan Sink</name>
+    <name>Flume NG Jboss Infinispan Source</name>
 
     <properties>
         <infinispan.version>5.1.6.FINAL</infinispan.version>
