@@ -36,16 +36,16 @@ public class InfinispanLocalClientTest {
     @Test
     public void putTest() {
 
-        for (int i = 0; i < cache.size(); i++) {
+        for (int i = 0; i < 100; i++) {
             cache.put(i, i);
         }
 
-        //   Assert.assertEquals(100, cache.size());
     }
 
     @Test
-    public void getTest() {
+    public void getTest() throws InterruptedException {
 
+        Thread.sleep(6000);
         for (int i = 0; i < cache.size(); i++) {
             logger.debug(cache.get(i).toString());
         }

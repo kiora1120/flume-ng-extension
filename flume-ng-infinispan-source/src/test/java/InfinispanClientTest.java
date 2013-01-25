@@ -33,14 +33,14 @@ public class InfinispanClientTest {
 
     @Before
     public void setUp() {
-        rcm = new RemoteCacheManager("localhost:11222");
-        cache = rcm.getCache("sharedCache");
+//        rcm = new RemoteCacheManager("localhost:11222");
+//        cache = rcm.getCache("sharedCache");
     }
 
     @Test
     public void putTest() {
 
-        for (int i = 101; i < 200; i++) {
+        for (int i = 0; i < 100; i++) {
             cache.put(i, i);
         }
 
@@ -48,8 +48,21 @@ public class InfinispanClientTest {
     }
 
     @Test
-    public void getTest() {
+    public void putEmbeddedTest() throws IOException, InterruptedException {
+        DefaultCacheManager cm = new DefaultCacheManager("config.xml");
+        Cache cache = cm.getCache("sharedCache");
+        for (int i = 0; i < 100; i++) {
+            cache.put(i, i);
+        }
 
+        Thread.sleep(1000);
+     //   Assert.assertEquals(100, cache.size());
+    }
+
+    @Test
+    public void getTest() throws IOException {
+        DefaultCacheManager cm = new DefaultCacheManager("config.xml");
+        Cache cache = cm.getCache("sharedCache");
         for (int i = 0; i < cache.size(); i++) {
             logger.debug(cache.get(i).toString());
         }

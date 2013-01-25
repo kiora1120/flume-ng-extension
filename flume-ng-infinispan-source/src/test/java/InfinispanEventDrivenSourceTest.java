@@ -37,7 +37,7 @@ public class InfinispanEventDrivenSourceTest {
         channel = new PseudoTxnMemoryChannel();
 
         Context context = new Context();
-        context.put("nodes", "localhost:11222");
+        context.put("configPath", "config.xml");
         context.put("cacheName", "sharedCache");
 
         Configurables.configure(source, context);

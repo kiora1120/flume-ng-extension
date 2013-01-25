@@ -302,7 +302,7 @@
                 useLockStriping="true"
                 />
         <clustering mode="replication">
-            <sync/>
+            <async replQueueInterval="1" useReplQueue="true"/>
         </clustering>
     </namedCache>
 

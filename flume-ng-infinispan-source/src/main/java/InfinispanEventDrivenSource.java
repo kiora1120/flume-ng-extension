@@ -54,13 +54,17 @@ public class InfinispanEventDrivenSource extends AbstractSource implements Confi
     public void start() {
         logger.info("InfinispanSource is started.............");
         try {
+            CacheListener listener =new CacheListener();
             cacheManager = new DefaultCacheManager(configPath);
+            //cacheManager.addListener(listener);
             cache = cacheManager.getCache(cacheName);
-            cache.addListener(new CacheListener());
+            cache.addListener(listener);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         super.start();
+
     }
 
     @Override
@@ -76,6 +80,7 @@ public class InfinispanEventDrivenSource extends AbstractSource implements Confi
 
         @CacheEntryCreated
         public void dataAdded(CacheEntryCreatedEvent event) {
+            System.out.println("1");
             if (event.isPre()) {
                 logger.debug("Going to add new entry [{}] created in the cache", event.getKey());
             } else {
