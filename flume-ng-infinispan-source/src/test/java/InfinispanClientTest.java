@@ -33,8 +33,8 @@ public class InfinispanClientTest {
 
     @Before
     public void setUp() {
-//        rcm = new RemoteCacheManager("localhost:11222");
-//        cache = rcm.getCache("sharedCache");
+        rcm = new RemoteCacheManager("localhost:11222");
+        cache = rcm.getCache("sharedCache");
     }
 
     @Test
@@ -44,19 +44,7 @@ public class InfinispanClientTest {
             cache.put(i, i);
         }
 
-     //   Assert.assertEquals(100, cache.size());
-    }
-
-    @Test
-    public void putEmbeddedTest() throws IOException, InterruptedException {
-        DefaultCacheManager cm = new DefaultCacheManager("config.xml");
-        Cache cache = cm.getCache("sharedCache");
-        for (int i = 0; i < 100; i++) {
-            cache.put(i, i);
-        }
-
-        Thread.sleep(1000);
-     //   Assert.assertEquals(100, cache.size());
+        Assert.assertEquals(100, cache.size());
     }
 
     @Test
@@ -72,7 +60,7 @@ public class InfinispanClientTest {
     }
 
     @Test
-    public void getCacheAll(){
+    public void getCacheAll() {
         Map bulk = cache.getBulk();
 
         Iterator iterator = bulk.entrySet().iterator();
