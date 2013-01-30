@@ -36,6 +36,9 @@
         <module>flume-ng-mongodb-sink</module>
         <module>flume-ng-custom-sources</module>
         <module>flume-ng-infinispan-sink</module>
+        <module>flume-ng-infinispan-source</module>
+        <module>flume-ng-jms-sink</module>
+        <module>flume-ng-jms-source</module>
     </modules>
 
     <profiles>
@@ -569,11 +572,11 @@
                             <report>issue-tracking</report>
                             <report>license</report>
                             <!-- for now
-                                                                      <report>modules</report>
-                                                                      <report>dependencies</report>
-                                                                      <report>cim</report>
-                                                                      <report>scm</report>
-                                                        -->
+                              <report>modules</report>
+                              <report>dependencies</report>
+                              <report>cim</report>
+                              <report>scm</report>
+                            -->
                         </reports>
                     </reportSet>
                 </reportSets>
